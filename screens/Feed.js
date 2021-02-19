@@ -1,5 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
+import { useContext } from "react";
 import {
   FlatList,
   SafeAreaView,
@@ -8,6 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { ThemeContext } from "../context/ThemeContext";
 
 const DATA = [
   { id: 1, title: "Title", summary: "Summary Text" },
@@ -19,12 +21,13 @@ const DATA = [
 
 const Article = ({ title, summary, id }) => {
   const navigation = useNavigation();
+  const { theme } = useContext(ThemeContext);
   return (
     <TouchableOpacity
       style={{
         height: 100,
         width: "100%",
-        backgroundColor: "#FAFAFA",
+        backgroundColor: theme.articleBackground,
         justifyContent: "center",
         alignItems: "center",
       }}
@@ -34,8 +37,8 @@ const Article = ({ title, summary, id }) => {
         console.log("navigate to: ", id);
       }}
     >
-      <Text>{title}</Text>
-      <Text>{summary}</Text>
+      <Text style={{ color: theme.textColor }}>{title}</Text>
+      <Text style={{ color: theme.textColor }}>{summary}</Text>
     </TouchableOpacity>
   );
 };
@@ -53,13 +56,14 @@ const FlatListItemSeparator = () => {
 };
 
 export default function Feed() {
+  const { theme } = useContext(ThemeContext);
   const renderArticle = ({ item }) => (
     <Article title={item.title} summary={item.summary} />
   );
   return (
     <SafeAreaView>
       <FlatList
-        style={{ height: "100%", backgroundColor: "red" }}
+        style={{ height: "100%", backgroundColor: theme.backgroundColor }}
         ItemSeparatorComponent={FlatListItemSeparator}
         data={DATA}
         renderItem={renderArticle}

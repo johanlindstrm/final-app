@@ -11,14 +11,7 @@ import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 
 const Stack = createStackNavigator();
-
-const screenOptionStyle = {
-  headerStyle: {
-    backgroundColor: "black",
-  },
-  headerTintColor: "white",
-  headerBackTitle: "Back",
-};
+const screenOptionStyle = {};
 
 export const MainStackNavigator = () => {
   const navigation = useNavigation();
@@ -27,8 +20,11 @@ export const MainStackNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        ...screenOptionStyle,
-        backgroundColor: theme.backgroundColor,
+        headerStyle: {
+          backgroundColor: theme.backgroundColor,
+        },
+        headerTintColor: theme.textColor,
+        headerBackTitle: "Back",
       }}
     >
       <Stack.Screen
@@ -38,8 +34,8 @@ export const MainStackNavigator = () => {
           headerLeft: () => (
             <Button
               onPress={() => navigation.navigate("Settings")}
-              title='@'
-              color='#fff'
+              title='+'
+              color={theme.textColor}
             />
           ),
         }}
