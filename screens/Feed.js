@@ -1,6 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
 import React from "react";
-import { render } from "react-dom";
 import {
   FlatList,
   SafeAreaView,
@@ -18,7 +17,7 @@ const DATA = [
   { id: 5, title: "Title", summary: "Summary Text" },
 ];
 
-const Article = ({ item, title, summary, id }) => {
+const Article = ({ title, summary, id }) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
