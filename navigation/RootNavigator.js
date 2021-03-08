@@ -1,6 +1,6 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MainStackNavigator, AuthStackNavigator } from "./StackNavigator";
+import { MainStackNavigator, AuthStackNavigator2 } from "./StackNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -18,7 +18,7 @@ export default function RootNavigator() {
   return (
     <Tab.Navigator tabBarOptions={tabBarOptionsStyle}>
       <Tab.Screen name='Feed' component={MainStackNavigator} />
-      <Tab.Screen name='Login' component={AuthStackNavigator} />
+      <Tab.Screen name='Login' component={AuthStackNavigator2} />
     </Tab.Navigator>
   );
 }

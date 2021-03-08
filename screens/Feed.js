@@ -19,7 +19,7 @@ const DATA = [
   { id: 5, title: "Title", summary: "Summary Text" },
 ];
 
-const Article = ({ title, summary, id }) => {
+const Article = ({ title, summary, item }) => {
   const navigation = useNavigation();
   const { theme } = useContext(ThemeContext);
   return (
@@ -34,7 +34,7 @@ const Article = ({ title, summary, id }) => {
       activeOpacity={0.7}
       onPress={() => {
         navigation.navigate("Article", { title: title, summary: summary });
-        console.log("navigate to: ", id);
+        console.log("navigate to: ", item);
       }}
     >
       <Text style={{ color: theme.textColor }}>{title}</Text>
@@ -58,7 +58,7 @@ const FlatListItemSeparator = () => {
 export default function Feed() {
   const { theme } = useContext(ThemeContext);
   const renderArticle = ({ item }) => (
-    <Article title={item.title} summary={item.summary} />
+    <Article title={item.title} summary={item.summary} item={item} />
   );
   return (
     <SafeAreaView>

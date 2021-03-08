@@ -4,14 +4,17 @@ import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import RootNavigator from "./navigation/RootNavigator";
 import ThemeContextProvider from "./context/ThemeContext";
+import AuthContextProvider from "./context/AuthContext";
 
 export default function App() {
   return (
-    <ThemeContextProvider>
-      <NavigationContainer>
-        <RootNavigator />
-      </NavigationContainer>
-    </ThemeContextProvider>
+    <AuthContextProvider>
+      <ThemeContextProvider>
+        <NavigationContainer>
+          <RootNavigator />
+        </NavigationContainer>
+      </ThemeContextProvider>
+    </AuthContextProvider>
   );
 }
 
