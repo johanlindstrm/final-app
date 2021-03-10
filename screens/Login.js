@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { useState, useContext } from "react";
 import { StyleSheet, Text, TextInput, View, Image } from "react-native";
@@ -8,16 +9,22 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { logIn } = useContext(AuthContext);
+  const navigation = useNavigation();
 
   const submit = () => {
     console.log("submitted log in");
     logIn(email, password);
   };
 
+  const navigateSignUp = () => {
+    console.log("Sign Up page pressed");
+    navigation.navigate("SignUp");
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={styles.header}>News App</Text>
+        <Text style={styles.header}>Disaster App</Text>
       </View>
       <View style={{ flex: 1.5, width: "100%", alignItems: "center" }}>
         <TextInput
@@ -47,6 +54,14 @@ export default function Login() {
         >
           <Text style={styles.buttonText}>LOGIN</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            marginTop: 20,
+          }}
+          onPress={navigateSignUp}
+        >
+          <Text>Sign up with email?</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -59,15 +74,15 @@ const styles = StyleSheet.create({
   },
 
   inputStyle: {
-    padding: 10,
+    padding: 15,
     backgroundColor: "#DCDCDC",
     marginBottom: 15,
-    width: 300,
+    width: 360,
     borderRadius: 5,
   },
 
   header: {
-    color: "#2bae6f",
+    color: "#000",
     fontSize: 42,
     fontWeight: "700",
     paddingTop: 230,
@@ -82,9 +97,9 @@ const styles = StyleSheet.create({
   },
 
   customButton: {
-    width: 300,
+    width: 360,
     height: 45,
-    backgroundColor: "#996633",
+    backgroundColor: "#000",
     justifyContent: "center",
     borderRadius: 5,
     marginTop: 10,

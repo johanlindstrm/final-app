@@ -8,6 +8,7 @@ import Login from "../screens/Login";
 import Profile from "../screens/Profile";
 import Article from "../screens/Article";
 import Settings from "../screens/Settings";
+import SignUp from "../screens/SignUp";
 import Splash from "../screens/Splash";
 
 import AuthenticatedStack from "./AuthenticatedStack";
@@ -51,6 +52,7 @@ export const MainStackNavigator = () => {
       <Stack.Screen name='Settings' component={Settings} />
       <Stack.Screen name='Profile' component={Profile} />
       <Stack.Screen name='Login' component={Login} />
+      <Stack.Screen name='SignUp' component={SignUp} />
     </Stack.Navigator>
   );
 };

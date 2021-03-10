@@ -12,11 +12,11 @@ import {
 import { ThemeContext } from "../context/ThemeContext";
 
 const DATA = [
-  { id: 1, title: "Title", summary: "Summary Text" },
-  { id: 2, title: "Title", summary: "Summary Text" },
-  { id: 3, title: "Title", summary: "Summary Text" },
-  { id: 4, title: "Title", summary: "Summary Text" },
-  { id: 5, title: "Title", summary: "Summary Text" },
+  { id: 1, title: "Title 1", summary: "Summary Text 1" },
+  { id: 2, title: "Title 2", summary: "Summary Text 2" },
+  { id: 3, title: "Title 3", summary: "Summary Text 3" },
+  { id: 4, title: "Title 4", summary: "Summary Text 4" },
+  { id: 5, title: "Title 5", summary: "Summary Text 5" },
 ];
 
 const Article = ({ title, summary, item }) => {
