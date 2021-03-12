@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
-import React from "react";
-import { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
+  Button,
   FlatList,
   SafeAreaView,
   StyleSheet,
@@ -56,12 +56,34 @@ const FlatListItemSeparator = () => {
 };
 
 export default function Feed() {
+  const [data, setData] = useState([]);
   const { theme } = useContext(ThemeContext);
   const renderArticle = ({ item }) => (
     <Article title={item.title} summary={item.summary} item={item} />
   );
+  const fetchData = () => {
+    fetch("https://api.krisinformation.se/v1/feed", {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        setData(json.Entries);
+        console.log("DATA FETCH: ", json);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   return (
     <SafeAreaView>
+      <View>
+        <Button title='fetch data' onPress={fetchData} />
+      </View>
       <FlatList
         style={{ height: "100%", backgroundColor: theme.backgroundColor }}
         ItemSeparatorComponent={FlatListItemSeparator}
