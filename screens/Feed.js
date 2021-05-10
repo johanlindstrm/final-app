@@ -13,8 +13,6 @@ import {
 } from "react-native";
 import { ThemeContext } from "../context/ThemeContext";
 
-const apiKey = "dadd9e787e374cc0994c169cd16de139";
-
 const DATA = [
   { id: 1, title: "Title 1", summary: "Summary Text 1" },
   { id: 2, title: "Title 2", summary: "Summary Text 2" },
