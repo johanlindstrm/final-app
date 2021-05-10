@@ -15,11 +15,14 @@ export default function SignUp() {
     console.log("submitted user register");
     // logIn(email, password);
     registerUser(email, password);
+    navigateHome();
   };
 
-  const navigateSignUp = () => {
-    console.log("Sign Up page pressed");
-    navigation.navigate("SignUp");
+  const navigateLogin = () => {
+    navigation.navigate("Login");
+  };
+  const navigateHome = () => {
+    navigation.navigate("Feed");
   };
 
   return (
@@ -59,9 +62,9 @@ export default function SignUp() {
           style={{
             marginTop: 20,
           }}
-          onPress={navigateSignUp}
+          onPress={navigateLogin}
         >
-          <Text>Sign up with email?</Text>
+          <Text>Already have an account?</Text>
         </TouchableOpacity>
       </View>
     </View>

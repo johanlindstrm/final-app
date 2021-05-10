@@ -18,37 +18,19 @@ export default function AuthContextProvider({ children }) {
   });
 
   const registerUser = (email, password) => {
-    // auth()
-    //   .createUserWithEmailAndPassword(email, password)
-    //   .then(() => {
-    //     console.log("User account created & signed in!");
-    //   })
-    //   .catch((error) => {
-    //     if (error.code === "auth/email-already-in-use") {
-    //       console.log("That email address is already in use!");
-    //     }
-
-    //     if (error.code === "auth/invalid-email") {
-    //       console.log("That email address is invalid!");
-    //     }
-
-    //     console.error(error);
-    //   });
-    try {
-      auth
-        .createUserWithEmailAndPassword(email, password)
-        .catch(function (error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          if (errorCode == "auth/weak-password") {
-            alert("The password is too weak.");
-          } else {
-            alert(errorMessage);
-          }
-          console.log(error);
-        });
-    } catch (error) {}
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .catch(function (error) {
+        // Handle Errors here.
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode == "auth/weak-password") {
+          alert("The password is too weak.");
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+      });
   };
 
   const logIn = async (email, password) => {

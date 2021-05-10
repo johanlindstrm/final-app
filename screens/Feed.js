@@ -1,5 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
+
 import {
   Button,
   FlatList,
@@ -11,6 +13,8 @@ import {
 } from "react-native";
 import { ThemeContext } from "../context/ThemeContext";
 
+const apiKey = "dadd9e787e374cc0994c169cd16de139";
+
 const DATA = [
   { id: 1, title: "Title 1", summary: "Summary Text 1" },
   { id: 2, title: "Title 2", summary: "Summary Text 2" },
@@ -19,9 +23,10 @@ const DATA = [
   { id: 5, title: "Title 5", summary: "Summary Text 5" },
 ];
 
-const Article = ({ title, summary, item }) => {
+const Article = ({ data: { item } }) => {
   const navigation = useNavigation();
   const { theme } = useContext(ThemeContext);
+
   return (
     <TouchableOpacity
       style={{
@@ -37,8 +42,10 @@ const Article = ({ title, summary, item }) => {
         console.log("navigate to: ", item);
       }}
     >
-      <Text style={{ color: theme.textColor }}>{title}</Text>
-      <Text style={{ color: theme.textColor }}>{summary}</Text>
+      <Text style={{ color: theme.textColor }}>Testing Title{item.title}</Text>
+      <Text style={{ color: theme.textColor }}>
+        Testing Content{item.summary}
+      </Text>
     </TouchableOpacity>
   );
 };
@@ -56,39 +63,64 @@ const FlatListItemSeparator = () => {
 };
 
 export default function Feed() {
+  //https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=dadd9e787e374cc0994c169cd16de139
+  //https://newsapi.org/v2/top-headlines?country=se&category=health&apiKey=dadd9e787e374cc0994c169cd16de139
   const [data, setData] = useState([]);
   const { theme } = useContext(ThemeContext);
-  const renderArticle = ({ item }) => (
-    <Article title={item.title} summary={item.summary} item={item} />
-  );
-  const fetchData = () => {
-    fetch("https://api.krisinformation.se/v1/feed", {
-      method: "GET",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((json) => {
-        setData(json.Entries);
-        console.log("DATA FETCH: ", json);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
+
+  // const renderArticle = ({ item }) => (
+  //   <Article title={item.title} summary={item.summary} item={item} />
+  // );
+
+  // useEffect(async () => {
+  //   await fetch(
+  //     "https://newsapi.org/v2/top-headlines?country=se&category=health&apiKey=dadd9e787e374cc0994c169cd16de139",
+  //     {
+  //       method: "GET",
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //       },
+  //     }
+  //   )
+  //     .then((response) => response.json())
+  //     .then((json) => {
+  //       setData(json);
+  //       console.log("DATA FETCH: ", json);
+  //       console.log("Test Data array", data);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios(
+        "https://newsapi.org/v2/top-headlines?country=se&category=health&apiKey=dadd9e787e374cc0994c169cd16de139"
+      );
+
+      setData(result.data);
+      console.log(result.data);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <SafeAreaView>
-      <View>
+      {/* <View>
         <Button title='fetch data' onPress={fetchData} />
-      </View>
+      </View> */}
+
       <FlatList
         style={{ height: "100%", backgroundColor: theme.backgroundColor }}
         ItemSeparatorComponent={FlatListItemSeparator}
-        data={DATA}
-        renderItem={renderArticle}
+        data={data}
+        renderItem={({ item }) => {
+          <Article />;
+        }}
+        // renderItem={renderArticle}
         keyExtractor={(item) => item.id.toString()}
       />
     </SafeAreaView>
