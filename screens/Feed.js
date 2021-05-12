@@ -40,10 +40,10 @@ const Article = ({ data: { item } }) => {
         console.log("navigate to: ", item);
       }}
     >
-      <Text style={{ color: theme.textColor }}>Testing Title{item.title}</Text>
       <Text style={{ color: theme.textColor }}>
-        Testing Content{item.summary}
+        Testing Title{item.article}
       </Text>
+      <Text style={{ color: theme.textColor }}>Testing Content{summary}</Text>
     </TouchableOpacity>
   );
 };
@@ -61,13 +61,13 @@ const FlatListItemSeparator = () => {
 };
 
 export default function Feed() {
-  //https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=dadd9e787e374cc0994c169cd16de139
-  //https://newsapi.org/v2/top-headlines?country=se&category=health&apiKey=dadd9e787e374cc0994c169cd16de139
   const [data, setData] = useState([]);
   const { theme } = useContext(ThemeContext);
+  //https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=dadd9e787e374cc0994c169cd16de139
+  //https://newsapi.org/v2/top-headlines?country=se&category=health&apiKey=dadd9e787e374cc0994c169cd16de139
 
   // const renderArticle = ({ item }) => (
-  //   <Article title={item.title} summary={item.summary} item={item} />
+  //   <Article title={item.title} summary={item.summary} />
   // );
 
   // useEffect(async () => {
@@ -107,19 +107,23 @@ export default function Feed() {
 
   return (
     <SafeAreaView>
-      {/* <View>
-        <Button title='fetch data' onPress={fetchData} />
-      </View> */}
+      <View>
+        <Button
+          title='fetch data'
+          onPress={() => {
+            console.log("DATA IN useState", data);
+          }}
+        />
+      </View>
 
       <FlatList
         style={{ height: "100%", backgroundColor: theme.backgroundColor }}
         ItemSeparatorComponent={FlatListItemSeparator}
         data={data}
-        renderItem={({ item }) => {
-          <Article />;
-        }}
-        // renderItem={renderArticle}
-        keyExtractor={(item) => item.id.toString()}
+        renderItem={({ item }) => <Article data={{ theme, item }} />}
+        // data={[1, 2, 3]}
+        // renderItem={({ item }) => <Text>{item}</Text>}
+        keyExtractor={(item) => item.toString()}
       />
     </SafeAreaView>
   );
