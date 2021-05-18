@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { Button } from "react-native";
+import { Button, TouchableOpacity, Image } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import Feed from "../screens/Feed";
@@ -18,9 +18,34 @@ import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { AuthContext } from "../context/AuthContext";
 
+// import { SettingsIcon } from "../resources/Icons";
+import { MessageOutlined, Icon } from "@ant-design/icons";
+
 const Stack = createStackNavigator();
 const screenOptionStyle = {};
 
+const SettingsIcon = () => {
+  const navigation = useNavigation();
+
+  return (
+    <TouchableOpacity
+      style={{ flexDirection: "row" }}
+      onPress={() => navigation.navigate("Settings")}
+    >
+      <Image
+        source={{
+          uri: "https://img.icons8.com/cotton/64/000000/settings--v1.png",
+        }}
+        style={{
+          width: 40,
+          height: 40,
+          borderRadius: 40 / 2,
+          marginLeft: 15,
+        }}
+      />
+    </TouchableOpacity>
+  );
+};
 export const MainStackNavigator = () => {
   const navigation = useNavigation();
   const { theme } = useContext(ThemeContext);
@@ -32,20 +57,14 @@ export const MainStackNavigator = () => {
           backgroundColor: theme.backgroundColor,
         },
         headerTintColor: theme.textColor,
-        headerBackTitle: "Back",
+        headerBackTitle: " ",
       }}
     >
       <Stack.Screen
         name='Feed'
         component={Feed}
         options={{
-          headerLeft: () => (
-            <Button
-              onPress={() => navigation.navigate("Settings")}
-              title='+'
-              color={theme.textColor}
-            />
-          ),
+          headerLeft: () => <SettingsIcon></SettingsIcon>,
         }}
       />
       <Stack.Screen name='Article' component={Article} />

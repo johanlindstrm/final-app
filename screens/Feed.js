@@ -11,6 +11,8 @@ import {
   TouchableOpacity,
   View,
   ActivityIndicator,
+  Image,
+  Linking,
 } from "react-native";
 import { ThemeContext } from "../context/ThemeContext";
 
@@ -64,34 +66,17 @@ const FlatListItemSeparator = () => {
 export default function Feed() {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-  const [count, setCount] = useState(0);
 
-  const [fetchData, setFetchData] = useState([]);
+  // const [fetchData, setFetchData] = useState([]);
   const { theme } = useContext(ThemeContext);
   const navigation = useNavigation();
 
   //https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=dadd9e787e374cc0994c169cd16de139
   //https://newsapi.org/v2/top-headlines?country=se&category=health&apiKey=dadd9e787e374cc0994c169cd16de139
 
-  // useEffect(() => {
-  //   fetch(
-  //     "https://newsapi.org/v2/top-headlines?country=se&category=health&apiKey=dadd9e787e374cc0994c169cd16de139",
-  //     {
-  //       method: "GET",
-  //     }
-  //   )
-  //     .then((response) => response.json())
-  //     .then((json) => {
-  //       setFetchData(json.body);
-  //       console.log("DATA", json);
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // }, [fetchData]);
   useEffect(() => {
     Axios.get(
-      "https://newsapi.org/v2/top-headlines?country=se&category=health&apiKey=dadd9e787e374cc0994c169cd16de139"
+      "https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=dadd9e787e374cc0994c169cd16de139"
     )
       .then(({ data }) => {
         console.log("defaultApp -> data", data.articles);
@@ -102,11 +87,12 @@ export default function Feed() {
   }, []);
 
   return (
-    <View style={{ flex: 1, padding: 24 }}>
+    <View style={{ flex: 1, padding: 0, margin: 5 }}>
       {isLoading ? (
         <ActivityIndicator />
       ) : (
         <FlatList
+          ItemSeparatorComponent={FlatListItemSeparator}
           data={data}
           keyExtractor={(item, index) => {
             // console.log("index", index)
@@ -117,23 +103,52 @@ export default function Feed() {
             return (
               <TouchableOpacity
                 style={{
-                  height: 100,
+                  height: 350,
+                  marginTop: 15,
                   width: "100%",
                   backgroundColor: theme.articleBackground,
-                  justifyContent: "center",
-                  alignItems: "center",
+                  // justifyContent: "center",
+                  // alignItems: "center",
                 }}
                 activeOpacity={0.7}
                 onPress={() => {
-                  navigation.navigate("Article", {});
+                  navigation.navigate("Article", {
+                    itemId: id,
+                    itemTitle: item.title,
+                    itemContent: item.content,
+                    itemPublished: item.publishedAt,
+                    itemUrl: item.url,
+                    itemUrlToImg: item.urlToImage,
+                  });
                   console.log("navigate to: ", item);
                 }}
               >
-                <Text style={{ color: theme.textColor }}>{item.title}</Text>
-                <Text style={{ color: theme.textColor }}>
+                <Image
+                  source={{ uri: `${item.urlToImage}` }}
+                  style={{ width: "100%", height: 200 }}
+                />
+                <Text style={{ color: theme.textColor, fontWeight: "bold" }}>
+                  {item.title}
+                </Text>
+                <Text
+                  style={{
+                    color: theme.textColor,
+                    alignSelf: "center",
+                    marginBottom: 5,
+                    marginTop: 5,
+                  }}
+                >
                   {item.publishedAt}
                 </Text>
-                <Text style={{ color: theme.textColor }}>{item.url}</Text>
+                <Text numberOfLines={3} style={{ color: theme.textColor }}>
+                  {item.content.length < 150
+                    ? `${item.content}`
+                    : `${item.content.substring(0, 150)}...`}
+                </Text>
+                <Button
+                  title={"link ->"}
+                  onPress={() => Linking.openURL(`${item.url}`)}
+                />
               </TouchableOpacity>
             );
           }}

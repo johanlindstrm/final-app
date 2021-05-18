@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Switch } from "react-native";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 
@@ -15,6 +15,7 @@ export default function Settings() {
         paddingTop: 100,
       }}
     >
+      <Switch></Switch>
       <TouchableOpacity
         style={styles.settingBtn}
         onPress={() => {

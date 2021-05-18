@@ -19,6 +19,12 @@ export default function Profile() {
       >
         <Text style={styles.buttonText}> SIGN OUT </Text>
       </TouchableOpacity>
+      <TouchableOpacity>
+        <Text>SAVED</Text>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <Text>FAVORITES</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -26,7 +32,7 @@ const styles = StyleSheet.create({
   container: {
     // backgroundColor:'yellow',
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
+    // alignItems: "center",
+    // justifyContent: "center",
   },
 });
