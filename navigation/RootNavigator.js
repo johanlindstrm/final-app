@@ -1,6 +1,10 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { MainStackNavigator, AuthStackNavigator2 } from "./StackNavigator";
+import {
+  MainStackNavigator,
+  AuthStackNavigator2,
+  UrgentStackNavigator,
+} from "./StackNavigator";
 
 const Tab = createBottomTabNavigator();
 
@@ -19,6 +23,7 @@ export default function RootNavigator() {
     <Tab.Navigator tabBarOptions={tabBarOptionsStyle}>
       <Tab.Screen name='Feed' component={MainStackNavigator} />
       <Tab.Screen name='Login' component={AuthStackNavigator2} />
+      <Tab.Screen name='Urgent' component={UrgentStackNavigator} />
     </Tab.Navigator>
   );
 }

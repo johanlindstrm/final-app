@@ -10,6 +10,7 @@ import Article from "../screens/Article";
 import Settings from "../screens/Settings";
 import SignUp from "../screens/SignUp";
 import Splash from "../screens/Splash";
+import Urgent from "../screens/Urgent";
 
 import AuthenticatedStack from "./AuthenticatedStack";
 import UnauthenticatedStack from "./UnauthenticatedStack";
@@ -34,11 +35,11 @@ const SettingsIcon = () => {
     >
       <Image
         source={{
-          uri: "https://img.icons8.com/cotton/64/000000/settings--v1.png",
+          uri: "https://img.icons8.com/ios-filled/50/000000/settings.png",
         }}
         style={{
-          width: 40,
-          height: 40,
+          width: 30,
+          height: 30,
           borderRadius: 40 / 2,
           marginLeft: 15,
         }}
@@ -80,6 +81,13 @@ export const AuthStackNavigator = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name='Login' component={Login} />
+    </Stack.Navigator>
+  );
+};
+export const UrgentStackNavigator = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name='Urgent' component={Urgent} />
     </Stack.Navigator>
   );
 };
