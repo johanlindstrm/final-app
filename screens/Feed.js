@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useContext, useEffect, useState } from "react";
-import axios from "axios";
+import Axios from "axios";
 
 import {
   Button,
@@ -10,6 +10,7 @@ import {
   Text,
   TouchableOpacity,
   View,
+  ActivityIndicator,
 } from "react-native";
 import { ThemeContext } from "../context/ThemeContext";
 
@@ -36,14 +37,14 @@ const Article = ({ data: { item } }) => {
       }}
       activeOpacity={0.7}
       onPress={() => {
-        navigation.navigate("Article", { title: title, summary: summary });
+        navigation.navigate("Article", {});
         console.log("navigate to: ", item);
       }}
     >
+      <Text style={{ color: theme.textColor }}>Testing Title{item.title}</Text>
       <Text style={{ color: theme.textColor }}>
-        Testing Title{item.article}
+        Testing Content{item.content}
       </Text>
-      <Text style={{ color: theme.textColor }}>Testing Content{summary}</Text>
     </TouchableOpacity>
   );
 };
@@ -61,70 +62,105 @@ const FlatListItemSeparator = () => {
 };
 
 export default function Feed() {
+  const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
+  const [count, setCount] = useState(0);
+
+  const [fetchData, setFetchData] = useState([]);
   const { theme } = useContext(ThemeContext);
+  const navigation = useNavigation();
+
   //https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=dadd9e787e374cc0994c169cd16de139
   //https://newsapi.org/v2/top-headlines?country=se&category=health&apiKey=dadd9e787e374cc0994c169cd16de139
 
-  // const renderArticle = ({ item }) => (
-  //   <Article title={item.title} summary={item.summary} />
-  // );
-
-  // useEffect(async () => {
-  //   await fetch(
+  // useEffect(() => {
+  //   fetch(
   //     "https://newsapi.org/v2/top-headlines?country=se&category=health&apiKey=dadd9e787e374cc0994c169cd16de139",
   //     {
   //       method: "GET",
-  //       headers: {
-  //         Accept: "application/json",
-  //         "Content-Type": "application/json",
-  //       },
   //     }
   //   )
   //     .then((response) => response.json())
   //     .then((json) => {
-  //       setData(json);
-  //       console.log("DATA FETCH: ", json);
-  //       console.log("Test Data array", data);
+  //       setFetchData(json.body);
+  //       console.log("DATA", json);
   //     })
   //     .catch((error) => {
   //       console.error(error);
   //     });
-  // }, []);
-
+  // }, [fetchData]);
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(
-        "https://newsapi.org/v2/top-headlines?country=se&category=health&apiKey=dadd9e787e374cc0994c169cd16de139"
-      );
-
-      setData(result.data);
-      console.log(result.data);
-    };
-
-    fetchData();
+    Axios.get(
+      "https://newsapi.org/v2/top-headlines?country=se&category=health&apiKey=dadd9e787e374cc0994c169cd16de139"
+    )
+      .then(({ data }) => {
+        console.log("defaultApp -> data", data.articles);
+        setData(data.articles);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
   }, []);
 
   return (
-    <SafeAreaView>
-      <View>
-        <Button
-          title='fetch data'
-          onPress={() => {
-            console.log("DATA IN useState", data);
+    <View style={{ flex: 1, padding: 24 }}>
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <FlatList
+          data={data}
+          keyExtractor={(item, index) => {
+            // console.log("index", index)
+            return index.toString();
+          }}
+          renderItem={({ item }) => {
+            console.log("item", item);
+            return (
+              <TouchableOpacity
+                style={{
+                  height: 100,
+                  width: "100%",
+                  backgroundColor: theme.articleBackground,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                activeOpacity={0.7}
+                onPress={() => {
+                  navigation.navigate("Article", {});
+                  console.log("navigate to: ", item);
+                }}
+              >
+                <Text style={{ color: theme.textColor }}>{item.title}</Text>
+                <Text style={{ color: theme.textColor }}>
+                  {item.publishedAt}
+                </Text>
+                <Text style={{ color: theme.textColor }}>{item.url}</Text>
+              </TouchableOpacity>
+            );
           }}
         />
-      </View>
-
-      <FlatList
-        style={{ height: "100%", backgroundColor: theme.backgroundColor }}
-        ItemSeparatorComponent={FlatListItemSeparator}
-        data={data}
-        renderItem={({ item }) => <Article data={{ theme, item }} />}
-        // data={[1, 2, 3]}
-        // renderItem={({ item }) => <Text>{item}</Text>}
-        keyExtractor={(item) => item.toString()}
-      />
-    </SafeAreaView>
+      )}
+    </View>
   );
+  // return (
+  //   <SafeAreaView>
+  //     <View>
+  //       <Button
+  //         title='fetch data'
+  //         onPress={() => {
+  //           console.log("DATA IN useState", data);
+  //         }}
+  //       />
+  //     </View>
+
+  //     <FlatList
+  //       style={{ height: "100%", backgroundColor: theme.backgroundColor }}
+  //       ItemSeparatorComponent={FlatListItemSeparator}
+  //       data={data}
+  //       renderItem={({ item }) => <Article data={{ theme, item }} />}
+  //       // data={[1, 2, 3]}
+  //       // renderItem={({ item }) => <Text>{item}</Text>}
+  //       keyExtractor={(item) => item.toString()}
+  //     />
+  //   </SafeAreaView>
+  // );
 }
