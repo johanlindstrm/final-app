@@ -4,16 +4,14 @@ import { useContext, useState } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 
 export default function Settings() {
-  const { toggleTheme, theme, isDarkMode, setIsDarkMode } = useContext(
-    ThemeContext
-  );
-  const [switchValue, setSwitchValue] = useState(true);
+  const { toggleTheme, theme } = useContext(ThemeContext);
+  // const [switchValue, setSwitchValue] = useState(true);
 
-  const toggleSwitch = (isDarkMode) => {
-    //To handle switch toggle
-    setSwitchValue(isDarkMode);
-    //State changes according to switch
-  };
+  // const toggleSwitch = (isDarkMode) => {
+  //   //To handle switch toggle
+  //   setSwitchValue(isDarkMode);
+  //   //State changes according to switch
+  // };
   return (
     <View
       style={{
@@ -23,11 +21,11 @@ export default function Settings() {
         paddingTop: 100,
       }}
     >
-      <Switch
+      {/* <Switch
         style={{ marginTop: 30 }}
         onValueChange={toggleSwitch}
         value={switchValue}
-      />
+      /> */}
 
       <TouchableOpacity
         style={styles.settingBtn}

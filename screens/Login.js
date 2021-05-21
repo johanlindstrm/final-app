@@ -24,9 +24,15 @@ export default function Login() {
   return (
     <View style={styles.container}>
       <View style={styles.headerContainer}>
-        <Text style={styles.header}>Disaster App</Text>
+        <Text style={styles.header}>News App</Text>
       </View>
-      <View style={{ flex: 1.5, width: "100%", alignItems: "center" }}>
+      <View
+        style={{
+          flex: 1.4,
+          width: "100%",
+          alignItems: "center",
+        }}
+      >
         <TextInput
           placeholder='name@email.com'
           value={email}
@@ -89,7 +95,7 @@ const styles = StyleSheet.create({
   },
 
   headerContainer: {
-    flex: 1.2,
+    flex: 0.9,
     width: "70%",
     alignItems: "center",
     justifyContent: "space-evenly",

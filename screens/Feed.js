@@ -87,12 +87,21 @@ export default function Feed() {
   }, []);
 
   return (
-    <View style={{ flex: 1, padding: 0, margin: 5 }}>
+    <View
+      style={{
+        flex: 1,
+        padding: 0,
+        margin: 0,
+        backgroundColor: theme.backgroundViewColor,
+        alignItems: "center",
+      }}
+    >
       {isLoading ? (
         <ActivityIndicator />
       ) : (
         <FlatList
-          ItemSeparatorComponent={FlatListItemSeparator}
+          // style={{ alignItems: "center" }}
+          // ItemSeparatorComponent={FlatListItemSeparator}
           data={data}
           keyExtractor={(item, index) => {
             // console.log("index", index)
@@ -103,12 +112,18 @@ export default function Feed() {
             return (
               <TouchableOpacity
                 style={{
-                  height: 350,
-                  marginTop: 15,
-                  width: "100%",
-                  backgroundColor: isDarkMode ? "black" : "white",
-                  // justifyContent: "center",
-                  // alignItems: "center",
+                  height: 400,
+                  // marginTop: 15,
+                  padding: 5,
+                  width: "98%",
+                  marginBottom: 10,
+                  marginTop: 5,
+                  // backgroundColor: theme.backgroundColor,
+                  backgroundColor: theme.backgroundColor,
+
+                  justifyContent: "center",
+                  alignSelf: "center",
+                  borderRadius: 5,
                 }}
                 activeOpacity={0.7}
                 onPress={() => {
@@ -124,12 +139,13 @@ export default function Feed() {
               >
                 <Image
                   source={{ uri: `${item.urlToImage}` }}
-                  style={{ width: "100%", height: 200 }}
+                  style={{ width: "100%", height: 225 }}
                 />
                 <Text
                   style={{
                     color: theme.textColor,
                     fontWeight: "bold",
+                    fontSize: 18,
                     marginTop: 5,
                   }}
                 >
@@ -143,7 +159,10 @@ export default function Feed() {
                     marginTop: 5,
                   }}
                 >
-                  {item.publishedAt}
+                  {/* {item.publishedAt} */}
+                  {item.publishedAt.length < 10
+                    ? `${item.publishedAt}`
+                    : `${item.publishedAt.substring(0, 10)}`}
                 </Text>
                 <Text numberOfLines={3} style={{ color: theme.textColor }}>
                   {item.content.length < 150
