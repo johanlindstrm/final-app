@@ -4,11 +4,14 @@ import { useState, useContext } from "react";
 import { StyleSheet, Text, TextInput, View, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { AuthContext } from "../context/AuthContext";
+import { ThemeContext } from "../context/ThemeContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { logIn } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
+
   const navigation = useNavigation();
 
   const submit = () => {
@@ -22,9 +25,16 @@ export default function Login() {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        ...styles.container,
+        backgroundColor: theme.backgroundViewColor,
+      }}
+    >
       <View style={styles.headerContainer}>
-        <Text style={styles.header}>News App</Text>
+        <Text style={{ ...styles.header, color: theme.textColor }}>
+          News App
+        </Text>
       </View>
       <View
         style={{
@@ -54,11 +64,16 @@ export default function Login() {
           keyboardAppearance={"dark"}
         />
         <TouchableOpacity
-          style={styles.customButton}
+          style={{
+            ...styles.customButton,
+            backgroundColor: theme.backgroundColor,
+          }}
           onPress={submit}
           activeOpacity={0.7}
         >
-          <Text style={styles.buttonText}>LOGIN</Text>
+          <Text style={{ ...styles.buttonText, color: theme.textColor }}>
+            LOGIN
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{
@@ -66,7 +81,9 @@ export default function Login() {
           }}
           onPress={navigateSignUp}
         >
-          <Text>Sign up with email?</Text>
+          <Text style={{ ...styles.signUpText, color: theme.textColor }}>
+            Sign up with email?
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -77,6 +94,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+
+  signUpText: {
+    marginTop: 10,
+    fontSize: 16,
   },
 
   inputStyle: {
@@ -91,7 +113,7 @@ const styles = StyleSheet.create({
     color: "#000",
     fontSize: 42,
     fontWeight: "700",
-    paddingTop: 230,
+    paddingTop: 150,
   },
 
   headerContainer: {
@@ -105,7 +127,7 @@ const styles = StyleSheet.create({
   customButton: {
     width: 360,
     height: 45,
-    backgroundColor: "#000",
+    // backgroundColor: "#000",
     justifyContent: "center",
     borderRadius: 5,
     marginTop: 10,

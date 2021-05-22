@@ -18,16 +18,36 @@ import UnauthenticatedStack from "./UnauthenticatedStack";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { AuthContext } from "../context/AuthContext";
-
-// import { SettingsIcon } from "../resources/Icons";
-import { MessageOutlined, Icon } from "@ant-design/icons";
+import Schemes from "../resources/Schemes";
 
 const Stack = createStackNavigator();
-const screenOptionStyle = {};
 
-const SettingsIcon = () => {
+const SettingsIconLight = () => {
   const navigation = useNavigation();
+  const { theme } = useContext(ThemeContext);
 
+  return (
+    <TouchableOpacity
+      style={{ flexDirection: "row" }}
+      onPress={() => navigation.navigate("Settings")}
+    >
+      <Image
+        source={require("../resources/icons/icon-settings-light.png")}
+        style={{
+          width: 30,
+          height: 30,
+          borderRadius: 40 / 2,
+          marginLeft: 15,
+        }}
+      />
+    </TouchableOpacity>
+  );
+};
+const SettingsIconDark = () => {
+  const navigation = useNavigation();
+  const { theme } = useContext(ThemeContext);
+
+  //"https://img.icons8.com/ios-filled/50/000000/settings.png"
   return (
     <TouchableOpacity
       style={{ flexDirection: "row" }}
@@ -47,6 +67,7 @@ const SettingsIcon = () => {
     </TouchableOpacity>
   );
 };
+
 export const MainStackNavigator = () => {
   const navigation = useNavigation();
   const { theme } = useContext(ThemeContext);
@@ -55,7 +76,7 @@ export const MainStackNavigator = () => {
     <Stack.Navigator
       screenOptions={{
         headerStyle: {
-          backgroundColor: theme.backgroundColor,
+          backgroundColor: theme.backgroundViewColor,
         },
         headerTintColor: theme.textColor,
         headerBackTitle: " ",
@@ -65,7 +86,7 @@ export const MainStackNavigator = () => {
         name='Feed'
         component={Feed}
         options={{
-          headerLeft: () => <SettingsIcon></SettingsIcon>,
+          headerLeft: () => <SettingsIconDark />,
         }}
       />
       <Stack.Screen name='Article' component={Article} />
@@ -77,16 +98,36 @@ export const MainStackNavigator = () => {
   );
 };
 
-export const AuthStackNavigator = () => {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name='Login' component={Login} />
-    </Stack.Navigator>
-  );
-};
+// export const AuthStackNavigator = () => {
+//   const { theme } = useContext(ThemeContext);
+
+//   return (
+//     <Stack.Navigator
+//       screenOptions={{
+//         headerStyle: {
+//           backgroundColor: theme.backgroundViewColor,
+//         },
+//         headerTintColor: theme.textColor,
+//         headerBackTitle: " ",
+//       }}
+//     >
+//       <Stack.Screen name='Login' component={Login} />
+//     </Stack.Navigator>
+//   );
+// };
 export const UrgentStackNavigator = () => {
+  const { theme } = useContext(ThemeContext);
+
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: theme.backgroundViewColor,
+        },
+        headerTintColor: theme.textColor,
+        headerBackTitle: " ",
+      }}
+    >
       <Stack.Screen name='Urgent' component={Urgent} />
     </Stack.Navigator>
   );

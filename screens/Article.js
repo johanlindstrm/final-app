@@ -1,7 +1,10 @@
 import React from "react";
+import { useContext } from "react";
 import { Button, Image, Linking, StyleSheet, Text, View } from "react-native";
+import { ThemeContext } from "../context/ThemeContext";
 
 export default function Article({ route, navigation }) {
+  const { theme } = useContext(ThemeContext);
   const {
     itemId,
     itemTitle,
@@ -12,39 +15,58 @@ export default function Article({ route, navigation }) {
   } = route.params;
 
   return (
-    <View>
+    <View
+      style={{
+        height: "100%",
+        backgroundColor: theme.backgroundViewColor,
+      }}
+    >
       <Image
         source={{ uri: `${itemUrlToImg}` }}
         style={{
-          width: "100%",
+          width: "98%",
           height: 250,
           marginTop: 15,
-          marginLeft: 5,
+          alignSelf: "center",
         }}
       />
+      <View>
+        <Text
+          style={{
+            fontWeight: "bold",
+            fontSize: 20,
+            color: theme.textColor,
+            textAlign: "center",
+          }}
+        >
+          {itemTitle}
+        </Text>
+      </View>
+
       <Text
         style={{
-          fontWeight: "bold",
-          fontSize: 20,
-          padding: 5,
-          backgroundColor: "green",
+          marginTop: 5,
+          color: theme.textColor,
+          textAlign: "center",
         }}
       >
-        {itemTitle}
-      </Text>
-      <Text style={{ marginTop: 10, padding: 5, backgroundColor: "red" }}>
-        {itemPublished}
+        {itemPublished.length < 10
+          ? `${itemPublished}`
+          : `${itemPublished.substring(0, 10)}`}
       </Text>
       <Text
         style={{
-          height: 100,
+          // height: 100,
           width: "100%",
-          marginTop: 10,
-          padding: 5,
-          backgroundColor: "orange",
+          marginTop: 5,
+          padding: 10,
+          color: theme.textColor,
+          textAlign: "left",
         }}
       >
-        {itemContent}
+        {itemContent < 150
+          ? `${itemContent}`
+          : `${itemContent.substring(0, 150)}...`}
       </Text>
       <Button
         title={"read more"}

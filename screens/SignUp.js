@@ -4,11 +4,15 @@ import { useState, useContext } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { AuthContext } from "../context/AuthContext";
+import { ThemeContext } from "../context/ThemeContext";
 
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // Context
   const { registerUser } = useContext(AuthContext);
+  const { theme } = useContext(ThemeContext);
+
   const navigation = useNavigation();
 
   const registerPressed = () => {
@@ -26,11 +30,18 @@ export default function SignUp() {
   };
 
   return (
-    <View style={styles.container}>
+    <View
+      style={{
+        ...styles.container,
+        backgroundColor: theme.backgroundViewColor,
+      }}
+    >
       <View style={styles.headerContainer}>
-        <Text style={styles.header}>Register User</Text>
+        <Text style={{ ...styles.header, color: theme.textColor }}>
+          Register User
+        </Text>
       </View>
-      <View style={{ flex: 1.5, width: "100%", alignItems: "center" }}>
+      <View style={{ flex: 1.4, width: "100%", alignItems: "center" }}>
         <TextInput
           placeholder='name@email.com'
           value={email}
@@ -52,11 +63,16 @@ export default function SignUp() {
           keyboardAppearance={"dark"}
         />
         <TouchableOpacity
-          style={styles.customButton}
+          style={{
+            ...styles.customButton,
+            backgroundColor: theme.backgroundColor,
+          }}
           onPress={registerPressed}
           activeOpacity={0.7}
         >
-          <Text style={styles.buttonText}>Register</Text>
+          <Text style={{ ...styles.buttonText, color: theme.textColor }}>
+            SIGN UP
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={{
@@ -64,7 +80,9 @@ export default function SignUp() {
           }}
           onPress={navigateLogin}
         >
-          <Text>Already have an account?</Text>
+          <Text style={{ ...styles.signUpText, color: theme.textColor }}>
+            Already have an account?
+          </Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -77,6 +95,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
 
+  signUpText: {
+    marginTop: 10,
+    fontSize: 16,
+  },
   inputStyle: {
     padding: 15,
     backgroundColor: "#DCDCDC",
@@ -89,11 +111,11 @@ const styles = StyleSheet.create({
     color: "#000",
     fontSize: 42,
     fontWeight: "700",
-    paddingTop: 230,
+    paddingTop: 150,
   },
 
   headerContainer: {
-    flex: 1.2,
+    flex: 0.9,
     width: "70%",
     alignItems: "center",
     justifyContent: "space-evenly",

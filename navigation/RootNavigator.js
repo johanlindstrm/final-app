@@ -40,7 +40,7 @@ export default function RootNavigator() {
         activeTintColor: theme.textColor,
         inactiveTintColor: "gray",
         style: {
-          backgroundColor: theme.backgroundColor,
+          backgroundColor: theme.backgroundViewColor,
         },
       }}
     >

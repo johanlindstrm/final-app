@@ -159,7 +159,6 @@ export default function Feed() {
                     marginTop: 5,
                   }}
                 >
-                  {/* {item.publishedAt} */}
                   {item.publishedAt.length < 10
                     ? `${item.publishedAt}`
                     : `${item.publishedAt.substring(0, 10)}`}
@@ -170,7 +169,7 @@ export default function Feed() {
                     : `${item.content.substring(0, 150)}...`}
                 </Text>
                 <Button
-                  title={"link ->"}
+                  title={"read more.. ->"}
                   onPress={() => Linking.openURL(`${item.url}`)}
                 />
               </TouchableOpacity>

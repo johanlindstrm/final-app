@@ -38,10 +38,10 @@ export default function Urgent() {
 
   //https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=dadd9e787e374cc0994c169cd16de139
   //https://newsapi.org/v2/top-headlines?country=se&category=health&apiKey=dadd9e787e374cc0994c169cd16de139
-
+  const category = "health";
   useEffect(() => {
     Axios.get(
-      "https://newsapi.org/v2/top-headlines?country=se&category=health&apiKey=dadd9e787e374cc0994c169cd16de139"
+      `https://newsapi.org/v2/top-headlines?country=se&category=${category}&apiKey=dadd9e787e374cc0994c169cd16de139`
     )
       .then(({ data }) => {
         console.log("defaultApp -> data", data.articles);
