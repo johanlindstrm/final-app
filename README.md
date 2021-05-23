@@ -6,6 +6,7 @@
 * Using News API for the data
 * Two API calls, one for the all purpose feed and one for urgent news
 * Sign In / Sign Out / Sign Up with **Firebase Auth** with **error handling**
+* Build with framework: **React Native** & **Expo**
 * Navigation: **@react-navigation/bottom-tabs** | **@react-navigation/stack** | **@react-navigation/native**
 * Helpful UX & Suitable UI
 
