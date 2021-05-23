@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Profile from "../screens/Profile";
 import { ThemeContext } from "../context/ThemeContext";
 import { useContext } from "react";
+import { SettingsIconDark, SettingsIconLight } from "./StackNavigator";
 
 const Stack = createStackNavigator();
 
@@ -26,7 +27,13 @@ export default function AuthenticatedStack() {
         headerBackTitle: " ",
       }}
     >
-      <Stack.Screen name='Profile' component={Profile} />
+      <Stack.Screen
+        name='Profile'
+        component={Profile}
+        options={{
+          headerLeft: () => <SettingsIconDark />,
+        }}
+      />
     </Stack.Navigator>
   );
 }

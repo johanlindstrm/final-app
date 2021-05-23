@@ -22,7 +22,7 @@ import Schemes from "../resources/Schemes";
 
 const Stack = createStackNavigator();
 
-const SettingsIconLight = () => {
+export const SettingsIconLight = () => {
   const navigation = useNavigation();
   const { theme } = useContext(ThemeContext);
 
@@ -43,7 +43,7 @@ const SettingsIconLight = () => {
     </TouchableOpacity>
   );
 };
-const SettingsIconDark = () => {
+export const SettingsIconDark = () => {
   const navigation = useNavigation();
   const { theme } = useContext(ThemeContext);
 
@@ -86,14 +86,32 @@ export const MainStackNavigator = () => {
         name='Feed'
         component={Feed}
         options={{
-          headerLeft: () => <SettingsIconDark />,
+          headerLeft: () => <SettingsIconLight />,
         }}
       />
       <Stack.Screen name='Article' component={Article} />
       <Stack.Screen name='Settings' component={Settings} />
-      <Stack.Screen name='Profile' component={Profile} />
-      <Stack.Screen name='Login' component={Login} />
-      <Stack.Screen name='SignUp' component={SignUp} />
+      <Stack.Screen
+        name='Profile'
+        component={Profile}
+        options={{
+          headerLeft: () => <SettingsIconLight />,
+        }}
+      />
+      <Stack.Screen
+        name='Login'
+        component={Login}
+        options={{
+          headerLeft: () => <SettingsIconLight />,
+        }}
+      />
+      <Stack.Screen
+        name='SignUp'
+        component={SignUp}
+        options={{
+          headerLeft: () => <SettingsIconLight />,
+        }}
+      />
     </Stack.Navigator>
   );
 };
@@ -128,7 +146,13 @@ export const UrgentStackNavigator = () => {
         headerBackTitle: " ",
       }}
     >
-      <Stack.Screen name='Urgent' component={Urgent} />
+      <Stack.Screen
+        name='Urgent'
+        component={Urgent}
+        options={{
+          headerLeft: () => <SettingsIconLight />,
+        }}
+      />
     </Stack.Navigator>
   );
 };

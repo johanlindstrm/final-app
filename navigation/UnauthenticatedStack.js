@@ -3,9 +3,9 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Login from "../screens/Login";
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
+import { SettingsIconDark, SettingsIconLight } from "./StackNavigator";
 
 const Stack = createStackNavigator();
-
 const screenOptionStyle = {
   headerStyle: {
     backgroundColor: "#fff",
@@ -26,7 +26,13 @@ export default function UnauthenticatedStack() {
         headerBackTitle: " ",
       }}
     >
-      <Stack.Screen name='Login' component={Login} />
+      <Stack.Screen
+        name='Login'
+        component={Login}
+        options={{
+          headerLeft: () => <SettingsIconLight />,
+        }}
+      />
     </Stack.Navigator>
   );
 }
