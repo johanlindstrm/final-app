@@ -1,12 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useContext, useEffect, useState } from "react";
 import Axios from "axios";
-
+import { styles } from "../resources/styles/styles";
 import {
-  Button,
   FlatList,
-  SafeAreaView,
-  StyleSheet,
   Text,
   TouchableOpacity,
   View,
@@ -79,14 +76,8 @@ export default function Urgent() {
               <View style={{ flex: 0.5, flexDirection: "column", padding: 5 }}>
                 <TouchableOpacity
                   style={{
-                    height: 230,
-                    marginTop: 5,
-                    width: 200,
-                    padding: 5,
+                    ...styles.gridItem,
                     backgroundColor: theme.articleBackground,
-                    borderRadius: 5,
-                    // justifyContent: "center",
-                    // alignItems: "center",
                   }}
                   activeOpacity={0.7}
                   onPress={() => {
@@ -103,13 +94,13 @@ export default function Urgent() {
                 >
                   <Image
                     source={{ uri: `${item.urlToImage}` }}
-                    style={{ width: "100%", height: 120 }}
+                    style={styles.gridImgSize}
                   />
                   <Text
                     style={{
+                      ...styles.titleText,
                       color: theme.textColor,
-                      fontWeight: "bold",
-                      marginTop: 5,
+                      fontSize: 14,
                     }}
                   >
                     {item.title.length < 35
@@ -118,27 +109,15 @@ export default function Urgent() {
                   </Text>
                   <Text
                     style={{
+                      ...styles.publishedAtText,
                       color: theme.textColor,
-                      alignSelf: "center",
-                      marginBottom: 5,
-                      marginTop: 5,
                     }}
                   >
                     {item.publishedAt.length < 10
                       ? `${item.publishedAt}`
                       : `${item.publishedAt.substring(0, 10)}`}
                   </Text>
-                  {/* <Text
-                    style={{
-                      color: theme.textColor,
-                      alignSelf: "center",
-                      marginBottom: 5,
-                      marginTop: 5,
-                    }}
-                    numberOfLines={3}
-                  >
-                    {item.content}
-                  </Text> */}
+
                   <View
                     style={{
                       flexDirection: "row",
@@ -149,7 +128,6 @@ export default function Urgent() {
                   >
                     <TouchableOpacity
                       style={{
-                        backgroundColor: "transparent",
                         paddingRight: 5,
                       }}
                     >
@@ -158,7 +136,7 @@ export default function Urgent() {
                           uri:
                             "https://img.icons8.com/ios/24/000000/like--v1.png",
                         }}
-                        style={{ width: 25, height: 25 }}
+                        style={styles.heartIconSize}
                       />
                     </TouchableOpacity>
                     <TouchableOpacity style={{ paddingLeft: 5 }}>
@@ -170,11 +148,6 @@ export default function Urgent() {
                       </Text>
                     </TouchableOpacity>
                   </View>
-
-                  {/* <Button
-                    title={"read more"}
-                    onPress={() => Linking.openURL(`${item.url}`)}
-                  /> */}
                 </TouchableOpacity>
               </View>
             );

@@ -19,11 +19,12 @@ export default function SignUp() {
     console.log("submitted user register");
     // logIn(email, password);
     registerUser(email, password);
-    navigateHome();
+    // navigateHome();
+    navigateLogin();
   };
 
   const navigateLogin = () => {
-    navigation.navigate("Login");
+    navigation.navigate("Profile");
   };
   const navigateHome = () => {
     navigation.navigate("Feed");

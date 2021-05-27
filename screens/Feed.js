@@ -1,74 +1,37 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useContext, useEffect, useState } from "react";
 import Axios from "axios";
-
+import { styles } from "../resources/styles/styles";
 import {
-  Button,
   FlatList,
-  SafeAreaView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
   ActivityIndicator,
   Image,
-  Linking,
 } from "react-native";
 import { ThemeContext } from "../context/ThemeContext";
 
-// const DATA = [
-//   { id: 1, title: "Title 1", summary: "Summary Text 1" },
-//   { id: 2, title: "Title 2", summary: "Summary Text 2" },
-//   { id: 3, title: "Title 3", summary: "Summary Text 3" },
-//   { id: 4, title: "Title 4", summary: "Summary Text 4" },
-//   { id: 5, title: "Title 5", summary: "Summary Text 5" },
-// ];
-
-const Article = ({ data: { item } }) => {
-  const navigation = useNavigation();
-  const { theme } = useContext(ThemeContext);
-
-  return (
-    <TouchableOpacity
-      style={{
-        height: 100,
-        width: "100%",
-        backgroundColor: theme.articleBackground,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-      activeOpacity={0.7}
-      onPress={() => {
-        navigation.navigate("Article", {});
-        console.log("navigate to: ", item);
-      }}
-    >
-      <Text style={{ color: theme.textColor }}>Testing Title{item.title}</Text>
-      <Text style={{ color: theme.textColor }}>
-        Testing Content{item.content}
-      </Text>
-    </TouchableOpacity>
-  );
-};
-
-const FlatListItemSeparator = () => {
-  return (
-    <View
-      style={{
-        height: 1,
-        width: "100%",
-        backgroundColor: "#d3d3d3",
-      }}
-    />
-  );
-};
+// Custom FlatListItemSeperator for a clean line seperating items, not used with the new cards style
+// const FlatListItemSeparator = () => {
+//   return (
+//     <View
+//       style={{
+//         height: 1,
+//         width: "100%",
+//         backgroundColor: "#d3d3d3",
+//       }}
+//     />
+//   );
+// };
 
 export default function Feed() {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
 
   // const [fetchData, setFetchData] = useState([]);
-  const { theme, isDarkMode, setIsDarkMode } = useContext(ThemeContext);
+  const { theme } = useContext(ThemeContext);
   const navigation = useNavigation();
 
   //https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=dadd9e787e374cc0994c169cd16de139
@@ -90,17 +53,13 @@ export default function Feed() {
     <View
       style={{
         flex: 1,
-        padding: 0,
-        margin: 0,
         backgroundColor: theme.backgroundViewColor,
-        alignItems: "center",
       }}
     >
       {isLoading ? (
         <ActivityIndicator />
       ) : (
         <FlatList
-          // style={{ alignItems: "center" }}
           // ItemSeparatorComponent={FlatListItemSeparator}
           data={data}
           keyExtractor={(item, index) => {
@@ -112,18 +71,8 @@ export default function Feed() {
             return (
               <TouchableOpacity
                 style={{
-                  height: 400,
-                  // marginTop: 15,
-                  padding: 5,
-                  width: "98%",
-                  marginBottom: 10,
-                  marginTop: 5,
-                  // backgroundColor: theme.backgroundColor,
+                  ...styles.cardItem,
                   backgroundColor: theme.backgroundColor,
-
-                  justifyContent: "center",
-                  alignSelf: "center",
-                  borderRadius: 5,
                 }}
                 activeOpacity={0.7}
                 onPress={() => {
@@ -139,25 +88,13 @@ export default function Feed() {
               >
                 <Image
                   source={{ uri: `${item.urlToImage}` }}
-                  style={{ width: "100%", height: 225 }}
+                  style={styles.imageSize}
                 />
-                <Text
-                  style={{
-                    color: theme.textColor,
-                    fontWeight: "bold",
-                    fontSize: 18,
-                    marginTop: 5,
-                  }}
-                >
+                <Text style={{ ...styles.titleText, color: theme.textColor }}>
                   {item.title}
                 </Text>
                 <Text
-                  style={{
-                    color: theme.textColor,
-                    alignSelf: "center",
-                    marginBottom: 5,
-                    marginTop: 5,
-                  }}
+                  style={{ ...styles.publishedAtText, color: theme.textColor }}
                 >
                   {item.publishedAt.length < 10
                     ? `${item.publishedAt}`
@@ -168,10 +105,10 @@ export default function Feed() {
                     ? `${item.content}`
                     : `${item.content.substring(0, 150)}...`}
                 </Text>
-                <Button
+                {/* <Button
                   title={"read more.. ->"}
                   onPress={() => Linking.openURL(`${item.url}`)}
-                />
+                /> */}
               </TouchableOpacity>
             );
           }}
@@ -179,26 +116,5 @@ export default function Feed() {
       )}
     </View>
   );
-  // return (
-  //   <SafeAreaView>
-  //     <View>
-  //       <Button
-  //         title='fetch data'
-  //         onPress={() => {
-  //           console.log("DATA IN useState", data);
-  //         }}
-  //       />
-  //     </View>
-
-  //     <FlatList
-  //       style={{ height: "100%", backgroundColor: theme.backgroundColor }}
-  //       ItemSeparatorComponent={FlatListItemSeparator}
-  //       data={data}
-  //       renderItem={({ item }) => <Article data={{ theme, item }} />}
-  //       // data={[1, 2, 3]}
-  //       // renderItem={({ item }) => <Text>{item}</Text>}
-  //       keyExtractor={(item) => item.toString()}
-  //     />
-  //   </SafeAreaView>
-  // );
 }
+// const styles = StyleSheet.create({});

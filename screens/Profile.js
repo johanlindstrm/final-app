@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 import { ThemeContext } from "../context/ThemeContext";
+import { styles } from "../resources/styles/styles";
 
 export default function Profile() {
   const { signOut } = useContext(AuthContext);
@@ -60,26 +61,3 @@ export default function Profile() {
     </View>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    // backgroundColor:'yellow',
-    flex: 1,
-    alignItems: "center",
-    // justifyContent: "center",
-    paddingBottom: 20,
-  },
-  customButton: {
-    width: 360,
-    height: 45,
-    backgroundColor: "#000",
-    justifyContent: "center",
-    borderRadius: 5,
-    marginTop: 10,
-  },
-  buttonText: {
-    color: "white",
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-});
