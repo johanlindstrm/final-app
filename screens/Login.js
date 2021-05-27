@@ -5,6 +5,7 @@ import { StyleSheet, Text, TextInput, View, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { AuthContext } from "../context/AuthContext";
 import { ThemeContext } from "../context/ThemeContext";
+import { styles } from "../resources/styles/styles";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -89,54 +90,3 @@ export default function Login() {
     </View>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  signUpText: {
-    marginTop: 10,
-    fontSize: 16,
-  },
-
-  inputStyle: {
-    padding: 15,
-    backgroundColor: "#DCDCDC",
-    marginBottom: 15,
-    width: 360,
-    borderRadius: 5,
-  },
-
-  header: {
-    color: "#000",
-    fontSize: 42,
-    fontWeight: "700",
-    paddingTop: 150,
-  },
-
-  headerContainer: {
-    flex: 0.9,
-    width: "70%",
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    flexDirection: "row",
-  },
-
-  customButton: {
-    width: 360,
-    height: 45,
-    // backgroundColor: "#000",
-    justifyContent: "center",
-    borderRadius: 5,
-    marginTop: 10,
-  },
-
-  buttonText: {
-    color: "white",
-    textAlign: "center",
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-});

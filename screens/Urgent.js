@@ -73,7 +73,7 @@ export default function Urgent() {
           renderItem={({ item }) => {
             console.log("item", item);
             return (
-              <View style={{ flex: 0.5, flexDirection: "column", padding: 5 }}>
+              <View style={styles.gridContainer}>
                 <TouchableOpacity
                   style={{
                     ...styles.gridItem,

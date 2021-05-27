@@ -70,4 +70,46 @@ export const styles = StyleSheet.create({
     width: "100%",
     height: 120,
   },
+
+  inputStyle: {
+    padding: 15,
+    backgroundColor: "#DCDCDC",
+    marginBottom: 15,
+    width: 360,
+    borderRadius: 5,
+  },
+  headerContainer: {
+    flex: 0.9,
+    width: "70%",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    flexDirection: "row",
+  },
+  header: {
+    color: "#000",
+    fontSize: 42,
+    fontWeight: "700",
+    paddingTop: 150,
+  },
+  signUpText: {
+    marginTop: 10,
+    fontSize: 16,
+  },
+  articleImg: {
+    width: "98%",
+    height: 250,
+    marginTop: 15,
+    alignSelf: "center",
+  },
+  articleTitle: {
+    fontWeight: "bold",
+    fontSize: 20,
+    textAlign: "center",
+  },
+  articleContent: {
+    width: "100%",
+    marginTop: 5,
+    padding: 10,
+    textAlign: "left",
+  },
 });

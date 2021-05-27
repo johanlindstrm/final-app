@@ -2,8 +2,9 @@ import React from "react";
 import { useContext } from "react";
 import { Button, Image, Linking, StyleSheet, Text, View } from "react-native";
 import { ThemeContext } from "../context/ThemeContext";
+import { styles } from "../resources/styles/styles";
 
-export default function Article({ route, navigation }) {
+export default function Article({ route }) {
   const { theme } = useContext(ThemeContext);
   const {
     itemId,
@@ -21,32 +22,17 @@ export default function Article({ route, navigation }) {
         backgroundColor: theme.backgroundViewColor,
       }}
     >
-      <Image
-        source={{ uri: `${itemUrlToImg}` }}
-        style={{
-          width: "98%",
-          height: 250,
-          marginTop: 15,
-          alignSelf: "center",
-        }}
-      />
+      <Image source={{ uri: `${itemUrlToImg}` }} style={styles.articleImg} />
       <View>
-        <Text
-          style={{
-            fontWeight: "bold",
-            fontSize: 20,
-            color: theme.textColor,
-            textAlign: "center",
-          }}
-        >
+        <Text style={{ ...styles.articleTitle, color: theme.textColor }}>
           {itemTitle}
         </Text>
       </View>
 
       <Text
         style={{
-          marginTop: 5,
           color: theme.textColor,
+          marginTop: 5,
           textAlign: "center",
         }}
       >
@@ -56,12 +42,8 @@ export default function Article({ route, navigation }) {
       </Text>
       <Text
         style={{
-          // height: 100,
-          width: "100%",
-          marginTop: 5,
-          padding: 10,
+          ...styles.articleContent,
           color: theme.textColor,
-          textAlign: "left",
         }}
       >
         {itemContent < 150
