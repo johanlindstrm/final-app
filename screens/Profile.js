@@ -1,9 +1,10 @@
 import React from "react";
 import { useContext } from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 import { ThemeContext } from "../context/ThemeContext";
 import { styles } from "../resources/styles/styles";
+import { CustomButton } from "../components/Button";
 
 export default function Profile() {
   const { signOut } = useContext(AuthContext);
@@ -25,39 +26,20 @@ export default function Profile() {
           marginTop: 20,
         }}
       >
-        <TouchableOpacity
-          style={{
-            ...styles.customButton,
-            backgroundColor: theme.backgroundColor,
+        <CustomButton
+          text={"SAVED ARTICLES"}
+          onPress={() => {
+            Alert.alert("No saved articles", "Sorry!");
           }}
-        >
-          <Text style={{ ...styles.buttonText, color: theme.textColor }}>
-            SPARADE ARTIKLAR
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            ...styles.customButton,
-            backgroundColor: theme.backgroundColor,
+        />
+        <CustomButton
+          text={"FAVORITES?"}
+          onPress={() => {
+            Alert.alert("Not available", "Sorry!");
           }}
-        >
-          <Text style={{ ...styles.buttonText, color: theme.textColor }}>
-            FAVORITES
-          </Text>
-        </TouchableOpacity>
+        />
       </View>
-      <TouchableOpacity
-        style={{
-          ...styles.customButton,
-          backgroundColor: theme.backgroundColor,
-        }}
-        onPress={logOut}
-        activeOpacity={0.7}
-      >
-        <Text style={{ ...styles.buttonText, color: theme.textColor }}>
-          SIGN OUT
-        </Text>
-      </TouchableOpacity>
+      <CustomButton text={"SIGN OUT"} onPress={logOut} />
     </View>
   );
 }

@@ -3,6 +3,7 @@ import React from "react";
 import { useState, useContext } from "react";
 import { StyleSheet, Text, TextInput, View, Image } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { CustomButton } from "../components/Button";
 import { AuthContext } from "../context/AuthContext";
 import { ThemeContext } from "../context/ThemeContext";
 import { styles } from "../resources/styles/styles";
@@ -64,18 +65,7 @@ export default function Login() {
           clearButtonMode={"always"}
           keyboardAppearance={"dark"}
         />
-        <TouchableOpacity
-          style={{
-            ...styles.customButton,
-            backgroundColor: theme.backgroundColor,
-          }}
-          onPress={submit}
-          activeOpacity={0.7}
-        >
-          <Text style={{ ...styles.buttonText, color: theme.textColor }}>
-            LOGIN
-          </Text>
-        </TouchableOpacity>
+        <CustomButton text={"LOGIN"} onPress={submit} />
         <TouchableOpacity
           style={{
             marginTop: 20,
