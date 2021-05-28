@@ -10,7 +10,9 @@ import {
   View,
   ActivityIndicator,
   Image,
+  TextInput,
 } from "react-native";
+import { ArticleItem } from "../components/ArticleItem";
 import { ThemeContext } from "../context/ThemeContext";
 
 // Custom FlatListItemSeperator for a clean line seperating items, not used with the new cards style
@@ -56,6 +58,13 @@ export default function Feed() {
         backgroundColor: theme.backgroundViewColor,
       }}
     >
+      <View style={{ backgroundColor: "red", height: 40 }}>
+        <TextInput
+          placeholder={"search"}
+          placeholderTextColor={theme.textColor}
+          maxLength={40}
+        ></TextInput>
+      </View>
       {isLoading ? (
         <ActivityIndicator />
       ) : (
@@ -66,52 +75,7 @@ export default function Feed() {
             // console.log("index", index)
             return index.toString();
           }}
-          renderItem={({ item }) => {
-            console.log("item", item);
-            return (
-              <TouchableOpacity
-                style={{
-                  ...styles.cardItem,
-                  backgroundColor: theme.backgroundColor,
-                }}
-                activeOpacity={0.7}
-                onPress={() => {
-                  navigation.navigate("Article", {
-                    itemTitle: item.title,
-                    itemContent: item.content,
-                    itemPublished: item.publishedAt,
-                    itemUrl: item.url,
-                    itemUrlToImg: item.urlToImage,
-                  });
-                  console.log("navigate to: ", item);
-                }}
-              >
-                <Image
-                  source={{ uri: `${item.urlToImage}` }}
-                  style={styles.imageSize}
-                />
-                <Text style={{ ...styles.titleText, color: theme.textColor }}>
-                  {item.title}
-                </Text>
-                <Text
-                  style={{ ...styles.publishedAtText, color: theme.textColor }}
-                >
-                  {item.publishedAt.length < 10
-                    ? `${item.publishedAt}`
-                    : `${item.publishedAt.substring(0, 10)}`}
-                </Text>
-                <Text numberOfLines={3} style={{ color: theme.textColor }}>
-                  {item.content.length < 150
-                    ? `${item.content}`
-                    : `${item.content.substring(0, 150)}...`}
-                </Text>
-                {/* <Button
-                  title={"read more.. ->"}
-                  onPress={() => Linking.openURL(`${item.url}`)}
-                /> */}
-              </TouchableOpacity>
-            );
-          }}
+          renderItem={({ item }) => <ArticleItem article={item} />}
         />
       )}
     </View>
