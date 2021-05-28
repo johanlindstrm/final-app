@@ -75,7 +75,21 @@ export default function Feed() {
             // console.log("index", index)
             return index.toString();
           }}
-          renderItem={({ item }) => <ArticleItem article={item} />}
+          renderItem={({ item }) => (
+            <ArticleItem
+              article={item}
+              onPress={() => {
+                navigation.navigate("Article", {
+                  itemTitle: item.title,
+                  itemContent: item.content,
+                  itemPublished: item.publishedAt,
+                  itemUrl: item.url,
+                  itemUrlToImg: item.urlToImage,
+                });
+                console.log("navigate to: ", item);
+              }}
+            />
+          )}
         />
       )}
     </View>

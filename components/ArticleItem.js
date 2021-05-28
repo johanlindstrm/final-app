@@ -5,7 +5,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Text, TouchableOpacity, Image } from "react-native";
 import { ThemeContext } from "../context/ThemeContext";
 
-export const ArticleItem = ({ article }) => {
+export const ArticleItem = ({ article, onPress }) => {
   const { content, title, publishedAt, urlToImage, url } = article;
 
   const { theme } = useContext(ThemeContext);
@@ -18,16 +18,17 @@ export const ArticleItem = ({ article }) => {
         backgroundColor: theme.backgroundColor,
       }}
       activeOpacity={0.7}
-      onPress={() => {
-        navigation.navigate("Article", {
-          itemTitle: title,
-          itemContent: content,
-          itemPublished: publishedAt,
-          itemUrl: url,
-          itemUrlToImg: urlToImage,
-        });
-        console.log("navigate to: ", item);
-      }}
+      //   onPress={() => {
+      //     navigation.navigate("Article", {
+      //       itemTitle: title,
+      //       itemContent: content,
+      //       itemPublished: publishedAt,
+      //       itemUrl: url,
+      //       itemUrlToImg: urlToImage,
+      //     });
+      //     console.log("navigate to: ", item);
+      //   }}
+      onPress={onPress}
     >
       <Image source={{ uri: `${urlToImage}` }} style={styles.imageSize} />
       <Text style={{ ...styles.titleText, color: theme.textColor }}>
