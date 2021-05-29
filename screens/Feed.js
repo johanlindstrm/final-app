@@ -2,16 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useContext, useEffect, useState } from "react";
 import Axios from "axios";
 import { styles } from "../resources/styles/styles";
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  ActivityIndicator,
-  Image,
-  TextInput,
-} from "react-native";
+import { FlatList, View, ActivityIndicator, TextInput } from "react-native";
 import { ArticleItem } from "../components/ArticleItem";
 import { ThemeContext } from "../context/ThemeContext";
 
@@ -31,8 +22,6 @@ import { ThemeContext } from "../context/ThemeContext";
 export default function Feed() {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState([]);
-
-  // const [fetchData, setFetchData] = useState([]);
   const { theme } = useContext(ThemeContext);
   const navigation = useNavigation();
 
