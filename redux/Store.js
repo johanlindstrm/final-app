@@ -5,7 +5,7 @@ import apiReducer from "./ApiReducer";
 
 const appReducers = combineReducers({ apiReducer });
 
-const rootReducer = (state, action) => applyMiddleware(state, action);
+const rootReducer = (state, action) => appReducers(state, action);
 
 const logger = createLogger();
 

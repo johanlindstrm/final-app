@@ -1,6 +1,13 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useContext, useEffect, useState } from "react";
-import { FlatList, View, ActivityIndicator, TextInput } from "react-native";
+import {
+  FlatList,
+  View,
+  ActivityIndicator,
+  TextInput,
+  Text,
+  Button,
+} from "react-native";
 import { ArticleItem } from "../components/ArticleItem";
 import { ThemeContext } from "../context/ThemeContext";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,30 +26,26 @@ import apiActionCreator from "../redux/ApiActionCreator";
 // };
 
 export default function Feed() {
-  const [isLoading, setLoading] = useState(true);
+  // const [isLoading, setLoading] = useState(true);
   // const [data, setData] = useState([]);
   const { theme } = useContext(ThemeContext);
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.data);
-  const loading = useSelector((state) => state.loading); //https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=dadd9e787e374cc0994c169cd16de139
+  const data = useSelector((state) => state.apiReducer.data);
+  const loading = useSelector((state) => state.apiReducer.loading);
+
+  // const data = useSelector((state) => state.data);
+  // const loading = useSelector((state) => state.loading);
+  //https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=dadd9e787e374cc0994c169cd16de139
   //https://newsapi.org/v2/top-headlines?country=se&category=health&apiKey=dadd9e787e374cc0994c169cd16de139
 
   useEffect(() => {
-    // Axios.get(
-    //   "https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=dadd9e787e374cc0994c169cd16de139"
-    // )
-    //   .then(({ data }) => {
-    //     console.log("defaultApp -> data", data.articles);
-    //     setData(data.articles);
-    //   })
-    //   .catch((error) => console.error(error))
-    //   .finally(() => setLoading(false));
     dispatch(
       apiActionCreator(
         "https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=dadd9e787e374cc0994c169cd16de139"
       )
     );
+    console.log("fetched", data);
   }, []);
 
   return (

@@ -7,7 +7,8 @@ const apiActionCreator = (url) => (dispatch) => {
     axios
       .get(url)
       .then((response) => {
-        dispatch(fetchSuccess(response.data));
+        dispatch(fetchSuccess(response.data.articles));
+        console.log("FETCH SUCCESS", response.data.articles);
       })
       .catch((error) => {
         dispatch(fetchError(error));
