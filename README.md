@@ -4,6 +4,7 @@
 ### Features
 
 * Using News API for the data
+* Setup **Redux** to handle the API calls from News API
 * Two API calls, one for the all purpose feed and one for urgent news
 * Sign In / Sign Out / Sign Up with **Firebase Auth** with **error handling**
 * Build with framework: **React Native** & **Expo**
