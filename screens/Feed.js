@@ -1,11 +1,10 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useContext, useEffect, useState } from "react";
-import Axios from "axios";
-import { styles } from "../resources/styles/styles";
 import { FlatList, View, ActivityIndicator, TextInput } from "react-native";
 import { ArticleItem } from "../components/ArticleItem";
 import { ThemeContext } from "../context/ThemeContext";
-
+import { useDispatch, useSelector } from "react-redux";
+import apiActionCreator from "../redux/ApiActionCreator";
 // Custom FlatListItemSeperator for a clean line seperating items, not used with the new cards style
 // const FlatListItemSeparator = () => {
 //   return (
@@ -21,23 +20,29 @@ import { ThemeContext } from "../context/ThemeContext";
 
 export default function Feed() {
   const [isLoading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
+  // const [data, setData] = useState([]);
   const { theme } = useContext(ThemeContext);
   const navigation = useNavigation();
-
-  //https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=dadd9e787e374cc0994c169cd16de139
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.data);
+  const loading = useSelector((state) => state.loading); //https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=dadd9e787e374cc0994c169cd16de139
   //https://newsapi.org/v2/top-headlines?country=se&category=health&apiKey=dadd9e787e374cc0994c169cd16de139
 
   useEffect(() => {
-    Axios.get(
-      "https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=dadd9e787e374cc0994c169cd16de139"
-    )
-      .then(({ data }) => {
-        console.log("defaultApp -> data", data.articles);
-        setData(data.articles);
-      })
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
+    // Axios.get(
+    //   "https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=dadd9e787e374cc0994c169cd16de139"
+    // )
+    //   .then(({ data }) => {
+    //     console.log("defaultApp -> data", data.articles);
+    //     setData(data.articles);
+    //   })
+    //   .catch((error) => console.error(error))
+    //   .finally(() => setLoading(false));
+    dispatch(
+      apiActionCreator(
+        "https://newsapi.org/v2/top-headlines?sources=bbc-news&apiKey=dadd9e787e374cc0994c169cd16de139"
+      )
+    );
   }, []);
 
   return (
@@ -54,7 +59,7 @@ export default function Feed() {
           maxLength={40}
         ></TextInput>
       </View>
-      {isLoading ? (
+      {loading ? (
         <ActivityIndicator />
       ) : (
         <FlatList
@@ -84,4 +89,16 @@ export default function Feed() {
     </View>
   );
 }
+// function mapStateToProps(state) {
+//   return {
+//     todos: state.articles,
+//   };
+// }
+// function mapDispatchToProps(dispatch) {
+//   return {
+//     ...bindActionCreators({ fetchArticles }, dispatch),
+//   };
+// }
+// export default connect(mapStateToProps, mapDispatchToProps)(Feed);
+
 // const styles = StyleSheet.create({});

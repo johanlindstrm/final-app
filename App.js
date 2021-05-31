@@ -5,16 +5,20 @@ import { NavigationContainer } from "@react-navigation/native";
 import RootNavigator from "./navigation/RootNavigator";
 import ThemeContextProvider from "./context/ThemeContext";
 import AuthContextProvider from "./context/AuthContext";
+import { Provider } from "react-redux";
+import { store } from "./redux/Store";
 
 export default function App() {
   return (
-    <AuthContextProvider>
-      <ThemeContextProvider>
-        <NavigationContainer>
-          <RootNavigator />
-        </NavigationContainer>
-      </ThemeContextProvider>
-    </AuthContextProvider>
+    <Provider store={store}>
+      <AuthContextProvider>
+        <ThemeContextProvider>
+          <NavigationContainer>
+            <RootNavigator />
+          </NavigationContainer>
+        </ThemeContextProvider>
+      </AuthContextProvider>
+    </Provider>
   );
 }
 
